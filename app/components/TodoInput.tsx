@@ -1,15 +1,14 @@
 "use client";
 
-import { useContext, useState } from "react";
-import { TodoContext } from "../hooks/TodoContext";
+import { api } from "@/convex/_generated/api";
+import { useMutation } from "convex/react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { HiOutlineChevronRight } from "react-icons/hi2";
 
 const TodoInput = () => {
-  const Context = useContext(TodoContext);
-  const addTodo = Context?.addTodo;
-
   const [title, setTitle] = useState<string>("");
+  const addTodo = useMutation(api.todos.addTodo);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -17,9 +16,7 @@ const TodoInput = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (addTodo) {
-      addTodo(title);
-    }
+    addTodo({ title: title });
     setTitle("");
   };
 

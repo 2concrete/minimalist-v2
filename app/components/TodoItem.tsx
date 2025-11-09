@@ -1,28 +1,28 @@
-import { useContext } from "react";
-import { TodoContext } from "../hooks/TodoContext";
+import { useMutation } from "convex/react";
 import { motion } from "framer-motion";
-
-type TodoItem = {
-  title: string;
-  completed: boolean;
-  uuid: number;
-};
+import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
 
 type TodoItemProps = {
-  todo: TodoItem;
+  todo: {
+    title: string;
+    completed: boolean;
+    _id: Id<"todos">;
+    _creationTime: number;
+  };
 };
 
 const TodoItem = ({ todo }: TodoItemProps) => {
-  const Context = useContext(TodoContext);
-  const deleteTodo = Context?.deleteTodo;
+  const deleteTodo = useMutation(api.todos.deleteTodo);
+  const toggleTodo = useMutation(api.todos.toggleTodo);
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      onClick={() => deleteTodo && deleteTodo(todo.uuid)}
+      onClick={() => toggleTodo({ id: todo._id })}
       className={`${
-        todo.completed && "line-through"
+        !todo.completed && "line-through"
       } hover:line-through transition-all cursor-pointer`}
     >
       {todo.title}

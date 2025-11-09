@@ -1,16 +1,20 @@
 "use client";
-import { TodoProvider } from "./hooks/TodoProvider";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import Logo from "./components/Logo";
+import { ConvexProvider, ConvexReactClient } from "convex/react";
 
 const App = () => {
+  const convex = new ConvexReactClient(
+    process.env.NEXT_PUBLIC_CONVEX_URL as string
+  );
+
   return (
-    <div className="w-lg mx-auto mt-16">
-      <TodoProvider>
+    <div className="w-lg mx-auto mt-16 font-[Inter]">
+      <ConvexProvider client={convex}>
         <TodoInput />
         <TodoList />
-      </TodoProvider>
+      </ConvexProvider>
       <Logo />
     </div>
   );
