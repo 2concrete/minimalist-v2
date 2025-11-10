@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import {
   ClerkProvider,
   SignInButton,
@@ -27,6 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
+      <Analytics />
       <html lang="en">
         <body className={`${interFont.variable} antialiased`}>
           <header className="flex justify-end items-center p-4 gap-4 ">
