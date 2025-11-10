@@ -12,7 +12,6 @@ type TodoItem = {
 
 const TodoList = () => {
   const todos = useQuery(api.todos.get);
-
   return (
     <>
       {todos && (
