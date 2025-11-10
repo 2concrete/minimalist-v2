@@ -14,11 +14,15 @@ const TodoList = () => {
   const todos = useQuery(api.todos.get);
 
   return (
-    <div className="flex flex-col-reverse">
-      {todos?.map((todo) => (
-        <TodoItem key={todo._id} todo={todo} />
-      ))}
-    </div>
+    <>
+      {todos && (
+        <div>
+          {[...todos].reverse()?.map((todo) => (
+            <TodoItem key={todo._id} todo={todo} />
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 

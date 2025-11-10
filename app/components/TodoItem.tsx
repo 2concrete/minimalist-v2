@@ -1,7 +1,7 @@
 import { useMutation } from "convex/react";
-import { motion } from "framer-motion";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
+import { motion } from "motion/react";
 
 type TodoItemProps = {
   todo: {
@@ -17,16 +17,17 @@ const TodoItem = ({ todo }: TodoItemProps) => {
   const toggleTodo = useMutation(api.todos.toggleTodo);
 
   return (
-    <motion.div
+    <motion.li
+      key={todo._id}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       onClick={() => toggleTodo({ id: todo._id })}
       className={`${
-        !todo.completed && "line-through"
-      } hover:line-through transition-all cursor-pointer`}
+        todo.completed && "line-through"
+      } ${!todo.completed && "decoration-gray-400"} hover:line-through transition-all cursor-pointer list-none`}
     >
       {todo.title}
-    </motion.div>
+    </motion.li>
   );
 };
 

@@ -5,6 +5,7 @@ const Logo = () => {
     <motion.h1
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
       className="absolute top-0 left-1 p-1 text-2xl font-semibold"
     >
       minimalist.
