@@ -28,7 +28,6 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <Analytics />
       <html lang="en">
         <body className={`${interFont.variable} antialiased`}>
           <header className="flex justify-end items-center p-4 gap-4 ">
@@ -51,6 +50,7 @@ export default function RootLayout({
             </SignedIn>
           </header>
           {children}
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>
