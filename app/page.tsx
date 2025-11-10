@@ -19,7 +19,7 @@ const App = () => {
   );
 
   return (
-    <div className="w-lg mx-auto mt-16 font-[Inter]">
+    <div className="lg:w-lg md:w-lg sm:w-lg w-xs mx-auto mt-16 font-[Inter]">
       <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
         <Authenticated>
           <TodoInput />
