@@ -4,6 +4,7 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import {
   ClerkProvider,
+  SignIn,
   SignInButton,
   SignUpButton,
   SignedIn,
@@ -27,18 +28,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      signInUrl="https://accounts.minimalist.ws/sign-in"
+      signUpUrl="https://accounts.minimalist.ws/sign-up"
+    >
       <html lang="en">
         <body className={`${interFont.variable} antialiased`}>
           <header className="flex justify-end items-center p-4 gap-4 ">
             <SignedOut>
               <div className="absolute top-0 right-0 px-3 py-2 flex gap-3">
-                <SignInButton>
+                <SignInButton mode="redirect">
                   <button className="font-[Inter] cursor-pointer hover:opacity-70 transition-all">
                     sign in
                   </button>
                 </SignInButton>
-                <SignUpButton>
+                <SignUpButton mode="redirect">
                   <button className="font-[Inter] cursor-pointer hover:opacity-70 transition-all">
                     sign up
                   </button>
