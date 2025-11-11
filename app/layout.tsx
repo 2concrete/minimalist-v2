@@ -28,10 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-      signInUrl="https://accounts.minimalist.ws/sign-in"
-      signUpUrl="https://accounts.minimalist.ws/sign-up"
-    >
+    <ClerkProvider afterSignOutUrl={"/"}>
       <html lang="en">
         <body className={`${interFont.variable} antialiased`}>
           <header className="flex justify-end items-center p-4 gap-4 ">
