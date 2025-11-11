@@ -1,3 +1,3 @@
-minimal todolist website using convexDB, Next.js, TailwindCSS and react.
+minimal todolist website using convexDB, Next.js, Clerk and TailwindCSS
 
-Launching soon
+live at [minimalist.ws](https://minimalist.ws)
