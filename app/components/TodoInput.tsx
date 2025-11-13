@@ -3,12 +3,18 @@
 import { api } from "@/convex/_generated/api";
 import { useMutation } from "convex/react";
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { HiOutlineChevronRight } from "react-icons/hi2";
+import { TodoContext } from "../hooks/TodoContext";
 
-const TodoInput = () => {
+type TodoInputProps = {
+  isAuthenticated: boolean;
+};
+
+const TodoInput = ({ isAuthenticated }: TodoInputProps) => {
   const [title, setTitle] = useState<string>("");
-  const addTodo = useMutation(api.todos.addTodo);
+  const addTodoDb = useMutation(api.todos.addTodo);
+  const Context = useContext(TodoContext);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -16,7 +22,13 @@ const TodoInput = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    addTodo({ title: title });
+
+    if (isAuthenticated) {
+      addTodoDb({ title: title });
+    } else if (Context?.addTodo) {
+      Context.addTodo(title);
+    }
+
     setTitle("");
   };
 
@@ -38,11 +50,15 @@ const TodoInput = () => {
           className="outline-none border-neutral-600 w-full"
         />
         {title && (
-          <div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+          >
             <button className="cursor-pointer">
               <HiOutlineChevronRight className="size-5 stroke-1 relative top-1" />
             </button>
-          </div>
+          </motion.div>
         )}
       </form>
     </motion.div>

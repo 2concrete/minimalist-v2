@@ -1,16 +1,10 @@
 "use client";
-import TodoInput from "./components/Authenticated/TodoInput";
-import TodoList from "./components/Authenticated/TodoList";
+import TodoInput from "./components/TodoInput";
+import TodoList from "./components/TodoList";
 import Logo from "./components/Logo";
 import { ConvexProviderWithClerk } from "convex/react-clerk";
-import {
-  Authenticated,
-  ConvexReactClient,
-  Unauthenticated,
-} from "convex/react";
+import { ConvexReactClient } from "convex/react";
 import { useAuth } from "@clerk/nextjs";
-import LocalTodoInput from "./components/Unauthenticated/LocalTodoInput";
-import LocalTodoList from "./components/Unauthenticated/LocalTodoList";
 import { TodoProvider } from "./hooks/TodoProvider";
 
 const convex = new ConvexReactClient(
@@ -18,19 +12,15 @@ const convex = new ConvexReactClient(
 );
 
 const App = () => {
+  const { isSignedIn } = useAuth();
+
   return (
     <div className="lg:w-lg md:w-lg sm:w-lg w-xs mx-auto mt-16 font-[Inter]">
       <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
-        <Authenticated>
-          <TodoInput />
-          <TodoList />
-        </Authenticated>
-        <Unauthenticated>
-          <TodoProvider>
-            <LocalTodoInput />
-            <LocalTodoList />
-          </TodoProvider>
-        </Unauthenticated>
+        <TodoProvider>
+          <TodoInput isAuthenticated={!!isSignedIn} />
+          <TodoList isAuthenticated={!!isSignedIn} />
+        </TodoProvider>
       </ConvexProviderWithClerk>
       <Logo />
     </div>

@@ -2,21 +2,43 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { motion, AnimatePresence } from "motion/react";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { TodoContext } from "../hooks/TodoContext";
 
 type TodoItemProps = {
   todo: {
     title: string;
     completed: boolean;
-    _id: Id<"todos">;
-    _creationTime: number;
+    _id?: Id<"todos">;
+    uuid?: number;
+    _creationTime?: number;
   };
+  isAuthenticated: boolean;
 };
 
-const TodoItem = ({ todo }: TodoItemProps) => {
+const TodoItem = ({ todo, isAuthenticated }: TodoItemProps) => {
   const [isHovering, setIsHovering] = useState(false);
-  const deleteTodo = useMutation(api.todos.deleteTodo);
-  const toggleTodo = useMutation(api.todos.toggleTodo);
+
+  const deleteTodoDb = useMutation(api.todos.deleteTodo);
+  const toggleTodoDb = useMutation(api.todos.toggleTodo);
+
+  const Context = useContext(TodoContext);
+
+  const handleDelete = () => {
+    if (isAuthenticated && todo._id) {
+      deleteTodoDb({ id: todo._id });
+    } else if (!isAuthenticated && todo.uuid && Context?.deleteTodo) {
+      Context.deleteTodo(todo.uuid);
+    }
+  };
+
+  const handleToggle = () => {
+    if (isAuthenticated && todo._id) {
+      toggleTodoDb({ id: todo._id });
+    } else if (!isAuthenticated && todo.uuid && Context?.toggleTodo) {
+      Context.toggleTodo(todo.uuid);
+    }
+  };
 
   return (
     <AnimatePresence mode="sync">
@@ -33,16 +55,13 @@ const TodoItem = ({ todo }: TodoItemProps) => {
             initial={{ x: -20 }}
             animate={{ x: 0 }}
             exit={{ x: -20 }}
-            onClick={() => deleteTodo({ id: todo._id })}
+            onClick={handleDelete}
             className="cursor-pointer opacity-90"
           >
             delete
           </motion.button>
         )}
-        <p
-          onClick={() => toggleTodo({ id: todo._id })}
-          className={` transition-all cursor-pointer`}
-        >
+        <p onClick={handleToggle} className="transition-all cursor-pointer">
           {todo.title}
         </p>
       </motion.div>

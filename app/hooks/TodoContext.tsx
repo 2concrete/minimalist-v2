@@ -4,9 +4,7 @@ import { createContext } from "react";
 
 type TodoItem = {
   title: string;
-
   completed: boolean;
-
   uuid: number;
 };
 
