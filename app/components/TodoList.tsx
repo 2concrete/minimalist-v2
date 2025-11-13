@@ -18,7 +18,7 @@ const TodoList = ({ isAuthenticated }: TodoListProps) => {
   if (!todos) return null;
 
   return (
-    <div className="flex flex-col-reverse">
+    <div className="flex flex-col-reverse mb-10">
       {[...todos]?.map((todo) => {
         const key = "_id" in todo ? todo._id : todo.uuid;
 

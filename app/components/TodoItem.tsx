@@ -48,22 +48,31 @@ const TodoItem = ({ todo, isAuthenticated }: TodoItemProps) => {
         animate={{ opacity: 1 }}
         onMouseOver={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
-        className="flex gap-1 w-fit"
+        className={`flex w-full justify-between transition-all border-b border-background hover:border-neutral-600`}
       >
+        <p onClick={handleToggle}>{todo.title}</p>
         {isHovering && (
-          <motion.button
-            initial={{ x: -20 }}
-            animate={{ x: 0 }}
-            exit={{ x: -20 }}
-            onClick={handleDelete}
-            className="cursor-pointer opacity-90"
-          >
-            delete
-          </motion.button>
+          <div className="flex gap-1">
+            <motion.button
+              initial={{ x: 20 }}
+              animate={{ x: 0 }}
+              exit={{ x: 20 }}
+              onClick={handleDelete}
+              className="cursor-pointer opacity-90"
+            >
+              delete
+            </motion.button>
+            <motion.button
+              initial={{ x: 20 }}
+              animate={{ x: 0 }}
+              exit={{ x: 20 }}
+              onClick={handleDelete}
+              className="cursor-pointer opacity-90"
+            >
+              edit
+            </motion.button>
+          </div>
         )}
-        <p onClick={handleToggle} className="transition-all cursor-pointer">
-          {todo.title}
-        </p>
       </motion.div>
     </AnimatePresence>
   );
