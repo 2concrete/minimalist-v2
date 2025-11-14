@@ -12,7 +12,6 @@ const TodoList = ({ isAuthenticated }: TodoListProps) => {
   const todosDb = useQuery(api.todos.get);
   const Context = useContext(TodoContext);
   const todosLocal = Context?.todos;
-
   const todos = isAuthenticated ? todosDb : todosLocal;
 
   if (!todos) return null;

@@ -33,6 +33,34 @@ export const addTodo = mutation({
   },
 });
 
+export const migrateTodos = mutation({
+  args: {
+    todos: v.array(
+      v.object({
+        title: v.string(),
+        completed: v.boolean(),
+        uuid: v.optional(v.string()),
+      })
+    ),
+  },
+  handler: async (ctx, args) => {
+    const { todos } = args;
+
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return;
+    }
+
+    for (const todo of todos) {
+      const id = await ctx.db.insert("todos", {
+        userId: identity?.subject,
+        title: todo.title,
+        completed: todo.completed,
+      });
+    }
+  },
+});
+
 export const toggleTodo = mutation({
   args: { id: v.id("todos") },
   handler: async (ctx, args) => {
