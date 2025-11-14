@@ -14,6 +14,8 @@
     "convex": "^1.28.2",
     "motion": "^12.23.24",
     "next": "16.0.1",
+    "posthog-js": "^1.292.0",
+    "posthog-node": "^5.11.2",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-icons": "^5.5.0"
