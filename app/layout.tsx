@@ -46,7 +46,9 @@ export default function RootLayout({
               </div>
             </SignedOut>
             <SignedIn>
-              <UserButton />
+              <div className="absolute mt-8">
+                <UserButton />
+              </div>
             </SignedIn>
           </header>
           {children}
