@@ -6,7 +6,6 @@ import { motion } from "motion/react";
 import { useState, useContext } from "react";
 import { HiOutlineChevronRight } from "react-icons/hi2";
 import { TodoContext } from "../hooks/TodoContext";
-import posthog from "posthog-js";
 
 type TodoInputProps = {
   isAuthenticated: boolean;
@@ -29,8 +28,6 @@ const TodoInput = ({ isAuthenticated }: TodoInputProps) => {
     } else if (Context?.addTodo) {
       Context.addTodo(title);
     }
-
-    posthog.capture("submit");
 
     setTitle("");
   };
