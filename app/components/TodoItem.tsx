@@ -4,7 +4,6 @@ import { Id } from "@/convex/_generated/dataModel";
 import { motion, AnimatePresence } from "motion/react";
 import { useState, useContext } from "react";
 import { TodoContext } from "../hooks/TodoContext";
-import posthog from "posthog-js";
 
 type TodoItemProps = {
   todo: {
@@ -31,7 +30,6 @@ const TodoItem = ({ todo, isAuthenticated }: TodoItemProps) => {
     } else if (!isAuthenticated && todo.uuid && Context?.deleteTodo) {
       Context.deleteTodo(todo.uuid);
     }
-    posthog.capture("test-event");
   };
 
   const handleToggle = () => {
