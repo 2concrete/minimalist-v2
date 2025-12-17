@@ -18,7 +18,7 @@ const interFont = Inter({
 
 export const metadata: Metadata = {
   title: "minimalist.",
-  description: "a minial todolist",
+  description: "a minimal todolist",
 };
 
 export default function RootLayout({
