@@ -11,4 +11,4 @@
 - clerk
 - convexDB
 
-#### try it at [minimalist.ws](https://minimalist.ws)
+#### try it at [minimalist-zeta.vercel.app (formally minimalist.ws)](https://minimalist-zeta.vercel.app/)
